@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.font-valentine {
+  font-family: 'Fredoka', ui-rounded, system-ui, -apple-system, 'Segoe UI', Roboto,
+    Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-22px) scale(1.06) rotate(-4deg);
+  }
+}
+
+.float-heart {
+  animation: floatY 1.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.float-heart-slow {
+  animation: floatY 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.float-heart-delay {
+  animation-delay: 0.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-heart,
+  .float-heart-slow,
+  .float-heart-delay {
+    animation: none !important;
+  }
+}
