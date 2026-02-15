@@ -5,21 +5,23 @@ import heroImage from './assets/heroImage.jpeg'
 import Section2 from './Section2.jsx'
 import mainHeart from './assets/mainHeart.jpeg'
 import smallHeart from './assets/smallHeart.jpeg'
+import section3Main from './assets/section3 main.jpeg'
 import Section3 from './Section3.jsx'
+import Section4 from './Section4.jsx'
+import section4Image from './assets/section3 secondary.jpeg'
+import Section5 from './Section5.jsx'
+
+// Section 5 carousel: use existing assets (add section5-1.jpeg, section5-2.jpeg, etc. in assets if you have dedicated trip photos)
+const section5Images = [mainHeart, smallHeart, section3Main, section4Image]
 
 const App = () => {
   return (
     <div className='min-h-screen bg-white'>
-      {/* Option A (recommended): put image in `public/images/hero.jpg` and use: */}
-      {/* <HeroSection bgImageUrl="/images/hero.jpg" /> */}
-
-      {/* Option B: put image in `src/assets/` then import it here, e.g.:
-          import heroBg from './assets/hero.jpg'
-          <HeroSection bgImageUrl={heroBg} />
-      */}
       <HeroSection bgImageUrl={heroImage} />
       <Section2 mainHeartImageUrl={mainHeart} smallHeartImageUrl={smallHeart} />
-      <Section3 />
+      <Section3 bigCircleImageUrl={section3Main} />
+      <Section4 imageUrl={section4Image} />
+      <Section5 images={section5Images} />
     </div>
   )
 }
