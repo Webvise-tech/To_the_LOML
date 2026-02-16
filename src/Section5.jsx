@@ -43,12 +43,12 @@ const GAP = 24
 
 export default function Section5({
   eyebrow = 'Our First Trip',
-  title = 'Why Some Places',
-  titleAccent = 'Just Click',
+  title = 'Where We Went',
+  titleAccent = 'Sharm El Sheikh',
   block1Title = "Adventure's Heart",
-  block1Description = 'The places we went together and the memories we keep. Our first trip started it all.',
-  block2Title = 'Miles Together',
-  block2Description = 'Every journey with you feels like home. Sed vitae malesuada sapien, integer eu sem.',
+  block1Description = 'Best 4days of my life I would never forget this trip one of the best experiences of my life . And it was with you ',
+  block2Title = 'Next Trip',
+  block2Description = 'I can\'t wait to go on another trip with you, I know it will be amazing ',
   images: imagesProp,
   image1Url,
   image2Url,
@@ -101,29 +101,41 @@ export default function Section5({
         {/* Top: left title + right feature blocks */}
         <div className='grid grid-cols-1 gap-12 pb-16 md:grid-cols-[1fr_1fr] md:gap-16'>
           <div>
-            <p className='text-sm font-medium text-slate-500'>{eyebrow}</p>
-            <h2 className='mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl md:text-[2.5rem]'>
+            <p className='reveal text-sm font-medium text-slate-500' style={{ '--reveal-delay': '80ms' }}>
+              {eyebrow}
+            </p>
+            <h2
+              className='reveal mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl md:text-[2.5rem]'
+              style={{ '--reveal-delay': '150ms' }}
+            >
               {title}
               <br />
               <span className='text-[#E44F76]'>{titleAccent}</span>
             </h2>
           </div>
           <div className='flex flex-col gap-8'>
-            <FeatureBlock
-              icon={FaMapMarkerAlt}
-              title={block1Title}
-              description={block1Description}
-            />
-            <FeatureBlock
-              icon={FaUsers}
-              title={block2Title}
-              description={block2Description}
-            />
+            <div className='reveal reveal-right' style={{ '--reveal-delay': '210ms' }}>
+              <FeatureBlock
+                icon={FaMapMarkerAlt}
+                title={block1Title}
+                description={block1Description}
+              />
+            </div>
+            <div className='reveal reveal-right' style={{ '--reveal-delay': '290ms' }}>
+              <FeatureBlock
+                icon={FaUsers}
+                title={block2Title}
+                description={block2Description}
+              />
+            </div>
           </div>
         </div>
 
         {/* Bottom: responsive carousel - 1 on mobile, 3 on desktop */}
-        <div className='relative flex items-center justify-center gap-6 rounded-3xl bg-pink-100/80 px-4 py-12 sm:gap-4 sm:px-14 sm:py-14 md:px-16'>
+        <div
+          className='reveal reveal-zoom relative flex items-center justify-center gap-6 rounded-3xl bg-pink-100/80 px-4 py-12 sm:gap-4 sm:px-14 sm:py-14 md:px-16'
+          style={{ '--reveal-delay': '220ms' }}
+        >
           <button
             type='button'
             onClick={goPrev}

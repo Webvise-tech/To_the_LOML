@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 
 export function useScrollAnimation(options = {}) {
-  const { threshold = 0.2, triggerOnce = true } = options
+  const {
+    threshold = 0.2,
+    triggerOnce = true,
+    rootMargin = '0px 0px -10% 0px',
+  } = options
   const ref = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -31,12 +35,12 @@ export function useScrollAnimation(options = {}) {
           }
         })
       },
-      { threshold },
+      { threshold, rootMargin },
     )
 
     observer.observe(element)
     return () => observer.disconnect()
-  }, [threshold, triggerOnce])
+  }, [threshold, triggerOnce, rootMargin])
 
   return [ref, isVisible]
 }

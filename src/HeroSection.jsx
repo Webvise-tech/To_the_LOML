@@ -42,7 +42,7 @@ function Wave({ className = '' }) {
 export default function HeroSection({
   bgImageUrl,
   title = 'Valentine',
-  subtitle = 'Falling in Love with Your Message',
+  subtitle = 'To the Girl Who Makes My World Brighter',
 }) {
   const [isVisible, setIsVisible] = useState(false)
   useEffect(() => {
@@ -73,7 +73,10 @@ export default function HeroSection({
 
       {/* Center content */}
       <div className='relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 text-center'>
-        <h1 className='select-none font-valentine text-[clamp(3.5rem,12vw,7.5rem)] leading-[0.95] tracking-wide text-white drop-shadow-[0_12px_40px_rgba(0,0,0,0.25)]'>
+        <h1
+          className='reveal select-none font-valentine text-[clamp(3.5rem,12vw,7.5rem)] leading-[0.95] tracking-wide text-white drop-shadow-[0_12px_40px_rgba(0,0,0,0.25)]'
+          style={{ '--reveal-delay': '120ms' }}
+        >
           {title === 'Valentine' ? (
             <>
               Valent
@@ -88,7 +91,10 @@ export default function HeroSection({
           )}
         </h1>
 
-        <p className='mt-6 text-sm font-medium tracking-wide text-white/80 sm:text-base'>
+        <p
+          className='reveal mt-6 text-sm font-medium tracking-wide text-white/80 sm:text-base'
+          style={{ '--reveal-delay': '260ms' }}
+        >
           {subtitle}
         </p>
       </div>

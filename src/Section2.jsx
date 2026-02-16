@@ -87,7 +87,7 @@ function HeartMaskedImage({
   )
 }
 
-function ProgressRow({ label = 'Memorable', value = 100 }) {
+function ProgressRow({ label = 'Memorable', value = 100, className = '' }) {
   const wrapRef = useRef(null)
   const [progress, setProgress] = useState(0)
 
@@ -122,7 +122,7 @@ function ProgressRow({ label = 'Memorable', value = 100 }) {
   }, [value])
 
   return (
-    <div ref={wrapRef} className='mt-10 max-w-md'>
+    <div ref={wrapRef} className={`mt-10 max-w-md ${className}`}>
       <div className='flex items-center gap-4'>
         <div className='grid h-12 w-12 place-items-center rounded-full bg-[#E44F76]/15 text-[#E44F76]'>
           <FaHeart className='h-6 w-6' />
@@ -157,10 +157,10 @@ function ProgressRow({ label = 'Memorable', value = 100 }) {
 }
 
 export default function Section2({
-  eyebrow = 'Why Stories Make Ideas Stick',
-  titleAccent = 'The Romance Of',
-  title = 'Storytelling',
-  body = 'Cupiditate nonproident, sed quia amor movet animos et creat memoriam. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
+  eyebrow = 'Where It All Started',
+  titleAccent = 'Our Love Story',
+  // title = 'Storytelling',
+  body = "When I first met you, I never knew I would fall so deeply for you. I had almost given up on love, but you came into my life and changed everything. You’re not just someone to me — you are my everything.",
   mainHeartImageUrl,
   smallHeartImageUrl,
 }) {
@@ -179,23 +179,34 @@ export default function Section2({
       <div className='mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-2'>
         {/* left */}
         <div>
-          <div className='text-sm font-medium text-slate-400'>{eyebrow}</div>
+          <div className='reveal text-sm font-medium text-slate-400' style={{ '--reveal-delay': '80ms' }}>
+            {eyebrow}
+          </div>
 
-          <h2 className='mt-6 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl'>
+          <h2
+            className='reveal mt-6 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl'
+            style={{ '--reveal-delay': '140ms' }}
+          >
             <span className='text-[#E44F76]'>{titleAccent}</span>
             <br />
-            {title}
+            {/* {title} */}
           </h2>
 
-          <p className='mt-6 max-w-xl text-sm leading-7 text-slate-400 sm:text-base'>
+          <p
+            className='reveal mt-6 max-w-xl text-sm leading-7 text-slate-400 sm:text-base'
+            style={{ '--reveal-delay': '220ms' }}
+          >
             {body}
           </p>
 
-          <ProgressRow label='Memorable' value={100} />
+          <div className='reveal' style={{ '--reveal-delay': '320ms' }}>
+            <ProgressRow label='Memorable' value={100} />
+            <ProgressRow label='Together' value={100} className='mt-6' />
+          </div>
         </div>
 
         {/* right */}
-        <div className='relative mx-auto w-full max-w-lg'>
+        <div className='reveal reveal-zoom relative mx-auto w-full max-w-lg' style={{ '--reveal-delay': '240ms' }}>
           <div className='relative ml-auto w-[min(520px,100%)]'>
             <HeartMaskedImage
               src={mainHeartImageUrl}

@@ -10,9 +10,15 @@ import Section3 from './Section3.jsx'
 import Section4 from './Section4.jsx'
 import section4Image from './assets/section3 secondary.jpeg'
 import Section5 from './Section5.jsx'
+import section5Image1 from './assets/section5 1.jpeg'
+import section5Image2 from './assets/section5 2.jpeg'
+import section5Image3 from './assets/section5 3.jpeg'
+
+
+import section5Image4 from './assets/section5 4.jpeg'
 
 // Section 5 carousel: 5 images for testing swiper
-const section5Images = [mainHeart, smallHeart, section3Main, section4Image, heroImage]
+const section5Images = [section5Image1, section5Image2, section5Image3, section5Image4]
 
 const App = () => {
   return (

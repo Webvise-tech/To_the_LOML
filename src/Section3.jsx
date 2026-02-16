@@ -37,14 +37,14 @@ function Stat({ value, body }) {
 }
 
 export default function Section3({
-  eyebrow = 'The Heartbeat of a Great Deck',
-  title = 'Falling In Love With',
-  titleAccent = 'Your Message',
-  body = 'Cupiditate non proident, sed quia amor movet animos et creat memoriam. Duis aute irure dolor in reprehenderit',
-  statLeftValue = '+589',
-  statLeftBody = 'Cupiditate non proident, sed quia amor movet',
-  statRightValue = '+8,000',
-  statRightBody = 'Cupiditate non proident, sed quia amor movet',
+  eyebrow = 'Where I Felt at Home',
+  title = 'Where I Belong',
+  // titleAccent = 'Your Message',
+  body = 'Nothing dramatic. Just comfort, trust, and being myself with you.',
+  statLeftValue = 'Since',
+  statLeftBody = '2025',
+  statRightValue = 'Still',
+  statRightBody = 'Here',
   bigCircleImageUrl,
 }) {
   const [sectionRef, isVisible] = useScrollAnimation({ threshold: 0.15 })
@@ -63,7 +63,7 @@ export default function Section3({
 
       <div className='mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-[1fr_1fr] md:gap-16 md:px-12'>
         {/* Left: single circle */}
-        <div className='flex flex-col items-center'>
+        <div className='reveal reveal-zoom flex flex-col items-center' style={{ '--reveal-delay': '120ms' }}>
           <CircleImage
             src={bigCircleImageUrl}
             alt='Couple'
@@ -73,16 +73,24 @@ export default function Section3({
 
         {/* Right: text + stats */}
         <div className='flex flex-col justify-center pt-2'>
-          <p className='text-sm font-medium text-slate-500'>{eyebrow}</p>
-          <h2 className='mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl md:text-[2.5rem]'>
+          <p className='reveal text-sm font-medium text-slate-500' style={{ '--reveal-delay': '100ms' }}>
+            {eyebrow}
+          </p>
+          <h2
+            className='reveal mt-4 text-3xl font-extrabold leading-tight tracking-tight text-[#E44F76] sm:text-4xl md:text-[2.5rem]'
+            style={{ '--reveal-delay': '180ms' }}
+          >
             {title}
             <br />
-            <span className='text-[#E44F76]'>{titleAccent}</span>
+            {/* <span className='text-[#E44F76]'>{titleAccent}</span> */}
           </h2>
-          <p className='mt-6 max-w-xl text-sm leading-7 text-slate-500 sm:text-base'>
+          <p
+            className='reveal mt-6 max-w-xl text-sm leading-7 text-slate-500 sm:text-base'
+            style={{ '--reveal-delay': '260ms' }}
+          >
             {body}
           </p>
-          <div className='mt-10 flex flex-wrap gap-x-12 gap-y-8'>
+          <div className='reveal mt-10 flex flex-wrap gap-x-12 gap-y-8' style={{ '--reveal-delay': '340ms' }}>
             <Stat value={statLeftValue} body={statLeftBody} />
             <Stat value={statRightValue} body={statRightBody} />
           </div>

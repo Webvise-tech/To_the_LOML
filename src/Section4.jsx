@@ -7,10 +7,12 @@ const PINK_DARK = '#E44F76'
 const PINK_LIGHT = '#F8B4C4'
 
 const barData = [
-  { label: 'Hungry', percent: 34, dark: true },
-  { label: 'Moody', percent: 70, dark: false },
-  { label: 'Fabulous', percent: 40, dark: true },
-  { label: 'SUPER HUNGRY', percent: 86, dark: false },
+  { label: 'Hungry', percent: 100, dark: true },
+  { label: 'Moody', percent: 65, dark: false },
+  { label: 'Smart', percent: 100, dark: true },
+  // Display infinity, but keep percent numeric for bar width/ARIA
+  { label: 'SUPER HUNGRY', percent: 100, display: '∞', dark: false },
+
 ]
 
 function BarChart() {
@@ -47,8 +49,12 @@ function BarChart() {
             <span className='w-28 shrink-0 text-sm font-medium text-slate-600'>
               {bar.label}
             </span>
-            <span className='shrink-0 text-sm font-semibold text-slate-500'>
-              {bar.percent}%
+            <span
+              className={`shrink-0 font-semibold text-slate-500 ${
+                bar.display ? 'text-2xl leading-none' : 'text-sm'
+              }`}
+            >
+              {bar.display ?? `${bar.percent}%`}
             </span>
           </div>
           <div
@@ -94,16 +100,16 @@ function FeatureBox({ title, subtitle, iconBg, boxBg, Icon }) {
 }
 
 export default function Section4({
-  eyebrow = 'Presentation Chemistry',
-  title = 'Love The',
-  titleAccent = 'Process',
-  body = 'Cupiditate non proident, sed quia amor movet animos et creat memoriam. Duis aute irure reprehenderit in',
-  chartTitle = 'Say It With Style',
+  eyebrow = 'You + Me',
+  title = 'My Safe',
+  titleAccent = 'Place',
+  body = 'You Know what the best think I love about you is your multiple personalities, ',  
+  // chartTitle = 'Say It With Style',
   imageUrl,
-  box1Title = 'Love Beyond Words',
-  box1Subtitle = 'Euismod, nunc at suscipit tristique',
+  box1Title = 'My Favorite Human',
+  box1Subtitle = 'I love how you are always there for me, no matter what',
   box2Title = 'Hearts and Minds',
-  box2Subtitle = 'Euismod, nunc at suscipit tristique',
+  box2Subtitle = 'Thank you for being there for me, no matter what. Without you, I would never have done it. ',
 }) {
   const [sectionRef, isVisible] = useScrollAnimation({ threshold: 0.15 })
   return (
@@ -121,21 +127,34 @@ export default function Section4({
       <div className='mx-auto grid max-w-6xl grid-cols-1 items-start gap-12 px-6 md:grid-cols-[1fr_1fr] md:gap-16 md:px-12'>
         {/* Left: heading, text, chart */}
         <div>
-          <p className='text-sm font-medium text-slate-500'>{eyebrow}</p>
-          <h2 className='mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl md:text-[2.5rem]'>
+          <p className='reveal text-sm font-medium text-slate-500' style={{ '--reveal-delay': '80ms' }}>
+            {eyebrow}
+          </p>
+          <h2
+            className='reveal mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl md:text-[2.5rem]'
+            style={{ '--reveal-delay': '150ms' }}
+          >
             {title}{' '}
             <span className='text-[#E44F76]'>{titleAccent}</span>
           </h2>
-          <p className='mt-6 max-w-xl text-sm leading-7 text-slate-500 sm:text-base'>
+          <p
+            className='reveal mt-6 max-w-xl text-sm leading-7 text-slate-500 sm:text-base'
+            style={{ '--reveal-delay': '240ms' }}
+          >
             {body}
           </p>
-          <p className='mt-10 text-sm font-medium text-slate-600'>{chartTitle}</p>
-          <BarChart />
+          {/* <p className='mt-10 text-sm font-medium text-slate-600'>{chartTitle}</p> */}
+          <div className='reveal' style={{ '--reveal-delay': '320ms' }}>
+            <BarChart />
+          </div>
         </div>
 
         {/* Right: image + feature boxes */}
         <div className='flex flex-col gap-8'>
-          <div className='overflow-hidden rounded-2xl bg-pink-50/50 shadow-[0_12px_40px_rgba(0,0,0,0.12)]'>
+          <div
+            className='reveal reveal-zoom overflow-hidden rounded-2xl bg-pink-50/50 shadow-[0_12px_40px_rgba(0,0,0,0.12)]'
+            style={{ '--reveal-delay': '160ms' }}
+          >
             {imageUrl ? (
               <img
                 src={imageUrl}
@@ -151,20 +170,24 @@ export default function Section4({
           </div>
 
           <div className='flex flex-col gap-4'>
-            <FeatureBox
-              title={box1Title}
-              subtitle={box1Subtitle}
-              boxBg={PINK_DARK}
-              iconBg='rgba(255,255,255,0.25)'
-              Icon={FiHeart}
-            />
-            <FeatureBox
-              title={box2Title}
-              subtitle={box2Subtitle}
-              boxBg={PINK_LIGHT}
-              iconBg={PINK_DARK}
-              Icon={FiHeart}
-            />
+            <div className='reveal' style={{ '--reveal-delay': '260ms' }}>
+              <FeatureBox
+                title={box1Title}
+                subtitle={box1Subtitle}
+                boxBg={PINK_DARK}
+                iconBg='rgba(255,255,255,0.25)'
+                Icon={FiHeart}
+              />
+            </div>
+            <div className='reveal' style={{ '--reveal-delay': '340ms' }}>
+              <FeatureBox
+                title={box2Title}
+                subtitle={box2Subtitle}
+                boxBg={PINK_LIGHT}
+                iconBg={PINK_DARK}
+                Icon={FiHeart}
+              />
+            </div>
           </div>
         </div>
       </div>
