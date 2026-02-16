@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaHeart, FaStar } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
+import { useScrollAnimation } from './useScrollAnimation.js'
 
 const PINK_DARK = '#E44F76'
 const PINK_LIGHT = '#F8B4C4'
@@ -104,8 +105,12 @@ export default function Section4({
   box2Title = 'Hearts and Minds',
   box2Subtitle = 'Euismod, nunc at suscipit tristique',
 }) {
+  const [sectionRef, isVisible] = useScrollAnimation({ threshold: 0.15 })
   return (
-    <section className='relative overflow-hidden bg-white py-16 sm:py-24'>
+    <section
+      ref={sectionRef}
+      className={`relative overflow-hidden bg-white py-16 sm:py-24 ${isVisible ? 'section-animate' : 'section-hidden'}`}
+    >
       {/* Decorative hearts */}
       <FaHeart className='pointer-events-none absolute left-8 top-32 h-8 w-8 text-[#E44F76] float-heart md:left-16 md:top-36' />
       <FaHeart className='pointer-events-none absolute right-8 top-10 h-8 w-8 text-[#E44F76]' />

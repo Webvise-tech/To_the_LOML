@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaCloud, FaHeart } from 'react-icons/fa'
 
 function Sparkle({ className = '' }) {
@@ -44,8 +44,12 @@ export default function HeroSection({
   title = 'Valentine',
   subtitle = 'Falling in Love with Your Message',
 }) {
+  const [isVisible, setIsVisible] = useState(false)
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
   return (
-    <section className='relative min-h-screen overflow-hidden'>
+    <section className={`relative min-h-screen overflow-hidden ${isVisible ? 'section-animate-fade' : 'section-hidden'}`}>
       {/* Background image */}
       <div
         className='absolute inset-0 bg-cover bg-center opacity-65'

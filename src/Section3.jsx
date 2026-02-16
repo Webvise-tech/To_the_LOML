@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaHeart, FaStar } from 'react-icons/fa'
+import { useScrollAnimation } from './useScrollAnimation.js'
 
 function CircleImage({ src, alt = '', sizeClassName }) {
   return (
@@ -46,8 +47,12 @@ export default function Section3({
   statRightBody = 'Cupiditate non proident, sed quia amor movet',
   bigCircleImageUrl,
 }) {
+  const [sectionRef, isVisible] = useScrollAnimation({ threshold: 0.15 })
   return (
-    <section className='relative overflow-hidden bg-pink-50 py-16 sm:py-24'>
+    <section
+      ref={sectionRef}
+      className={`relative overflow-hidden bg-pink-50 py-16 sm:py-24 ${isVisible ? 'section-animate' : 'section-hidden'}`}
+    >
       {/* Stars: top-left and top-right */}
       <FaStar className='pointer-events-none absolute left-8 top-8 h-5 w-5 text-[#E44F76]' />
       <FaStar className='pointer-events-none absolute right-8 top-8 h-5 w-5 text-[#E44F76]' />

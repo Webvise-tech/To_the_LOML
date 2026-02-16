@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaChevronLeft, FaChevronRight, FaHeart, FaMapMarkerAlt, FaPlus, FaUsers } from 'react-icons/fa'
+import { useScrollAnimation } from './useScrollAnimation.js'
 
 function CircleImage({ src, alt = '', className = '' }) {
   return (
@@ -36,9 +37,9 @@ function FeatureBlock({ icon: Icon, title, description }) {
   )
 }
 
-const CIRCLE_SIZE = 200
+const CIRCLE_SIZE_MOBILE = 180
+const CIRCLE_SIZE_DESKTOP = 200
 const GAP = 24
-const STEP = CIRCLE_SIZE + GAP
 
 export default function Section5({
   eyebrow = 'Our First Trip',
@@ -53,21 +54,39 @@ export default function Section5({
   image2Url,
   image3Url,
 }) {
-  // images array: [img1, img2, img3, img4, ...]. We always show 3 at a time.
-  // Right arrow: first slides left and disappears, next one enters from right → [img2, img3, img4]
   const images = Array.isArray(imagesProp) && imagesProp.length > 0
     ? imagesProp
     : [image1Url, image2Url, image3Url].filter(Boolean)
-  const maxIndex = Math.max(0, images.length - 3)
+  
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
 
-  // Right: show next triple (first slides left off, new from right). Left: show previous triple.
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768) // md breakpoint
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Mobile: show 1, Desktop: show 3
+  const visibleCount = isMobile ? 1 : 3
+  const circleSize = isMobile ? CIRCLE_SIZE_MOBILE : CIRCLE_SIZE_DESKTOP
+  const step = circleSize + GAP
+  const maxIndex = Math.max(0, images.length - visibleCount)
+  const viewportWidth = circleSize * visibleCount + GAP * (visibleCount - 1)
+
   const goPrev = () => setCurrentIndex((i) => (i <= 0 ? maxIndex : i - 1))
   const goNext = () => setCurrentIndex((i) => (i >= maxIndex ? 0 : i + 1))
-  const showArrows = images.length > 3
+  const showArrows = images.length > visibleCount
+  const [sectionRef, isVisible] = useScrollAnimation({ threshold: 0.15 })
 
   return (
-    <section className='relative overflow-hidden bg-pink-50 py-16 sm:py-24'>
+    <section
+      ref={sectionRef}
+      className={`relative overflow-hidden bg-pink-50 py-16 sm:py-24 ${isVisible ? 'section-animate' : 'section-hidden'}`}
+    >
       {/* Decorative: plus below title */}
       <FaPlus className='pointer-events-none absolute left-1/2 top-52 h-4 w-4 -translate-x-1/2 text-[#E44F76] md:top-48' />
       {/* Heart above second feature block */}
@@ -103,23 +122,23 @@ export default function Section5({
           </div>
         </div>
 
-        {/* Bottom: always show 3 circles. Arrows slide: right = first goes left, new from right */}
-        <div className='relative flex items-center justify-center gap-4 rounded-3xl bg-pink-100/80 px-14 py-12 sm:px-16 sm:py-14'>
+        {/* Bottom: responsive carousel - 1 on mobile, 3 on desktop */}
+        <div className='relative flex items-center justify-center gap-6 rounded-3xl bg-pink-100/80 px-4 py-12 sm:gap-4 sm:px-14 sm:py-14 md:px-16'>
           <button
             type='button'
             onClick={goPrev}
             disabled={!showArrows}
-            className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/90 text-[#E44F76] shadow-lg transition hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E44F76] focus:ring-offset-2 disabled:opacity-40 disabled:pointer-events-none'
+            className='flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/90 text-[#E44F76] shadow-lg transition hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E44F76] focus:ring-offset-2 disabled:opacity-40 disabled:pointer-events-none sm:h-12 sm:w-12'
             aria-label='Previous'
           >
-            <FaChevronLeft className='h-6 w-6' />
+            <FaChevronLeft className='h-5 w-5 sm:h-6 sm:w-6' />
           </button>
 
-          <div className='overflow-hidden' style={{ width: CIRCLE_SIZE * 3 + GAP * 2 }}>
+          <div className='overflow-hidden' style={{ width: viewportWidth }}>
             <div
               className='flex transition-transform duration-300 ease-out'
               style={{
-                transform: `translateX(-${currentIndex * STEP}px)`,
+                transform: `translateX(-${currentIndex * step}px)`,
                 gap: `${GAP}px`,
               }}
             >
@@ -127,7 +146,7 @@ export default function Section5({
                 <div
                   key={i}
                   className='shrink-0 overflow-hidden rounded-full'
-                  style={{ width: CIRCLE_SIZE, height: CIRCLE_SIZE }}
+                  style={{ width: circleSize, height: circleSize }}
                 >
                   <CircleImage
                     src={src}
@@ -143,10 +162,10 @@ export default function Section5({
             type='button'
             onClick={goNext}
             disabled={!showArrows}
-            className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/90 text-[#E44F76] shadow-lg transition hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E44F76] focus:ring-offset-2 disabled:opacity-40 disabled:pointer-events-none'
+            className='flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/90 text-[#E44F76] shadow-lg transition hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E44F76] focus:ring-offset-2 disabled:opacity-40 disabled:pointer-events-none sm:h-12 sm:w-12'
             aria-label='Next'
           >
-            <FaChevronRight className='h-6 w-6' />
+            <FaChevronRight className='h-5 w-5 sm:h-6 sm:w-6' />
           </button>
         </div>
       </div>

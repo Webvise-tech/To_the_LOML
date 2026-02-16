@@ -1,6 +1,7 @@
 import React, { useEffect, useId, useRef, useState } from 'react'
 import { FaHeart, FaStar } from 'react-icons/fa'
 import { FiMoreVertical } from 'react-icons/fi'
+import { useScrollAnimation } from './useScrollAnimation.js'
 
 function HeartMaskedImage({
   src,
@@ -163,8 +164,12 @@ export default function Section2({
   mainHeartImageUrl,
   smallHeartImageUrl,
 }) {
+  const [sectionRef, isVisible] = useScrollAnimation({ threshold: 0.15 })
   return (
-    <section className='relative overflow-hidden bg-white py-16 sm:py-24'>
+    <section
+      ref={sectionRef}
+      className={`relative overflow-hidden bg-white py-16 sm:py-24 ${isVisible ? 'section-animate' : 'section-hidden'}`}
+    >
       {/* decorative bits */}
       <FaHeart className='pointer-events-none absolute left-8 top-10 h-8 w-8 text-[#E44F76] float-heart' />
       <FaHeart className='pointer-events-none absolute right-10 top-12 h-11 w-11 text-[#E44F76] float-heart-slow float-heart-delay' />
